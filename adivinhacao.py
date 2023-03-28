@@ -1,48 +1,49 @@
-print("***************************************************************")
-print("Bem vindo ao jogo de adivinhação!")
-print("O número secreto é um inteiro entre 0 e 10, com ambos inclusos.")
-print("***************************************************************")
-
 import random
 
-rodada = 1
-numerosecreto = round(random.random() * 10)
-nivel = int(input("Digite 1, para fácil, 2, para médio e 3, para díficil: "))
+print("'''''''''''''''''''''''''''''''''")
+print("Bem vindo ao jogo de adivinhação")
+print("''''''''''''''''''''''''''''''''")
+
+nome = input("Qual é o seu nome? ")
+random = random.randint(0, 20)
+
+nivel = int(input(f"{nome}, digite o seu nível. 1 - FÁCIL. 2 - MÉDIO. 3 - DIFÍCIL: "))
 
 if nivel == 1:
-    print("Nível fácil, 10 tentativas")
     tentativas = 10
+    print(nome, f"Você escolheu o modo fácil com {tentativas} tentativas, boa sorte.")
 
-if nivel == 2:
-    print("Nível médio, 5 tentativas")
+elif nivel == 2:
     tentativas = 5
+    print(f"{nome}, você escolheu o modo médio com {tentativas} tentativas, boa sorte.")
 
-if nivel == 3:
-    print("Nível dífiicl, 3 tentativas")
+elif nivel == 3:
     tentativas = 3
+    print(f"{nome}, você escolheu o modo difícil com {tentativas} tentativas")
 
-while rodada <= tentativas:
-    print("Rodada ", rodada, " de ", tentativas)
-    chute = int(input("Qual é o seu chute "))
-    print("Você digitou ", chute)
+if nivel < 1 or nivel > 3:
+    print(f"{nome}, você digitou um nível incorreto")
 
-    certo = numerosecreto == chute
-    maior = numerosecreto > chute
-    menor = numerosecreto < chute
+while tentativas > 1:
+    chute = int(input("Digite o seu chute: "))
+    tentativas = tentativas - 1
 
-    if certo:
-        print("Parabéns, você acertou!!!")
-        print("fim de jogo")
+    if chute > random:
+        print("Chute muito alto, o número é menor")
+        print(f"RESTAM APENAS {tentativas} TENTATIVAS")
+    if chute < random:
+        print("Chute muito baixo, o número é maior")
+        print(f"RESTAM APENAS {tentativas} TENTATIVAS")
+    if chute == random:
+        print("PARABÉNS, VOCÊ ACERTOU")
         break
 
+while tentativas == 1 and chute != random:
+    print("ESSA É A ÚLTIMA CHANCE")
+    novoChute = int(input("Digite o valor: "))
+    if novoChute == random:
+        print("Certo")
+        tentativas = tentativas - 1
     else:
-        if maior:
-            print("Você errou, o  número secreto é maior do que esse")
-        elif menor:
-            print("Você errou, o número secreto é menor do que esse")
-
-    rodada = rodada + 1
-    while rodada > tentativas:
-        print("O número secreto era", numerosecreto)
-        print("Fim do jogo")
-        break
+        print(f"O jogo acabou e o número era {random}")
+    break
